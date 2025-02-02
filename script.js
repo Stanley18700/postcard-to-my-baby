@@ -5,35 +5,41 @@ document.addEventListener("DOMContentLoaded", function () {
     const imageContainer = document.querySelector(".background-images");
     const backgroundHearts = document.querySelector(".background-hearts");
 
-    // Image List
     const imageList = [
         "zhuzhu1.jpg", "zhuzhu2.jpg", "zhuzhu3.jpg",
         "zhuzhu4.jpg", "zhuzhu5.jpg", "zhuzhu6.jpg",
         "zhuzhu7.jpg", "zhuzhu8.jpg"
     ];
 
-    // 💌 Typing Effect
-    let message = "ကခဂဃင ,Your koe koe 💖";
+    // Typing Effect
+    let message = "ကခဂဃင , Your koe koe 💖";
     let index = 0;
 
     function typeLetter() {
-        if (index < message.length) {
+        if (letterText && index < message.length) {
             letterText.innerHTML += message.charAt(index);
             index++;
             setTimeout(typeLetter, 100);
         }
     }
 
-    // 💌 Envelope Click Event
+    // Envelope Click Event
     envelope.addEventListener("click", () => {
         envelope.classList.toggle("flap");
         if (envelope.classList.contains("flap")) {
             setTimeout(typeLetter, 1500);
+            playSound(); // Play envelope opening sound (optional)
             createConfetti();
         }
     });
 
-    // 💖 Heart Hover Effect
+    // Play sound effect (optional)
+    function playSound() {
+        let sound = new Audio("pop.mp3"); // Ensure pop.mp3 exists in the project folder
+        sound.play();
+    }
+
+    // Heart Hover Effect
     heart.addEventListener("mouseover", function () {
         heart.style.transform = "scale(1.2)";
     });
@@ -42,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         heart.style.transform = "scale(1)";
     });
 
-    // 🎊 Confetti Effect
+    // Confetti Effect
     function createConfetti() {
         for (let i = 0; i < 30; i++) {
             let confetti = document.createElement("div");
@@ -58,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ❤️ Function to Create a Heart
+    // Function to create floating hearts
     function createHeart() {
         const heart = document.createElement("div");
         heart.classList.add("heart-shape");
@@ -66,13 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const colors = ["#D70040", "#FFFFFF", "#FFD700"]; // Red, White, Gold
         heart.style.background = colors[Math.floor(Math.random() * colors.length)];
 
-        heart.style.setProperty("--heart-color", heart.style.background);
         return heart;
     }
 
-    // ❤️ Function to Position Falling Hearts
     function positionHearts() {
-        const numHearts = 100;
+        const numHearts = 50;
         for (let i = 0; i < numHearts; i++) {
             const heart = createHeart();
             heart.style.left = `${Math.random() * 100}%`;
@@ -83,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // 📸 Function to Place Background Images
+    // Function to place images randomly
     function placeImages() {
         imageList.forEach(imgSrc => {
             let img = document.createElement("img");
@@ -95,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Call Functions
-    positionHearts(); // ❤️ Floating Hearts
-    placeImages(); // 📸 Scattered Images
+    positionHearts();
+    placeImages();
 });
