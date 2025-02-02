@@ -2,12 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const envelope = document.querySelector(".envelope-wrapper");
     const letterText = document.querySelector(".text p");
     const heart = document.querySelector(".heart");
-    const imageContainer = document.querySelector(".background-images");
-    const imageList = [
-        "zhuzhu1.jpg", "zhuzhu2.jpg", "zhuzhu3.jpg",
-        "zhuzhu4.jpg", "zhuzhu5.jpg", "zhuzhu6.jpg",
-        "zhuzhu7.jpg", "zhuzhu8.jpg"
-    ];
+    const heartContainer = document.querySelector(".background-hearts");
 
     let message = "ကခဂဃင ,Your koe koe 💖";
     let index = 0;
@@ -27,16 +22,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    function placeImages() {
-        imageList.forEach(imgSrc => {
-            let img = document.createElement("img");
-            img.src = `images/${imgSrc}`;
-            img.style.top = `${Math.random() * 80 + 10}vh`;
-            img.style.left = `${Math.random() * 80 + 10}vw`;
-            img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-            imageContainer.appendChild(img);
-        });
+    function createFloatingHearts() {
+        setInterval(() => {
+            let heart = document.createElement("div");
+            heart.classList.add("heart-shape");
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDuration = `${Math.random() * 3 + 3}s`;
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }, 300);
     }
 
-    placeImages();
+    createFloatingHearts();
 });
