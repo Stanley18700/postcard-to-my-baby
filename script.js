@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function placeImages() {
         imageList.forEach(imgSrc => {
             let img = document.createElement("img");
-            img.src = `image/${imgSrc}`; // Adjust path if necessary
+            img.src = `images/${imgSrc}`; // Adjust path if necessary
             img.style.top = `${Math.random() * 90}vh`;  // Random vertical position
             img.style.left = `${Math.random() * 90}vw`; // Random horizontal position
             img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`; // Slight random rotation
