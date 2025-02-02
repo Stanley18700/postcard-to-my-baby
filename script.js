@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function placeImages() {
         imageList.forEach(imgSrc => {
             let img = document.createElement("img");
-            img.src = `image/${imgSrc}`;
+            img.src = `images/${imgSrc}`;
             img.style.top = `${Math.random() * 90}vh`;
             img.style.left = `${Math.random() * 90}vw`;
             img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
