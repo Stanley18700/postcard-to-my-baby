@@ -2,6 +2,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const envelope = document.querySelector(".envelope-wrapper");
     const letterText = document.querySelector(".text p");
     const heart = document.querySelector(".heart");
+    const imageContainer = document.querySelector(".background-images");
+    const imageList = [
+        "zhuzhu1.jpg", "zhuzhu2.jpg", "zhuzhu3.jpg",
+        "zhuzhu4.jpg","zhuzhu5.jpg","zhuzhu6.jpg",
+        "zhuzhu7.jpg","zhuzhu8.jpg"
+        ]:
 
     // Typing Effect
     let message = "ကခဂဃင ,Your koe koe 💖";
@@ -82,6 +88,17 @@ document.addEventListener("DOMContentLoaded", function () {
             backgroundHearts.appendChild(heart);
         }
     }
+    function placeImages() {
+        imageList.forEach(imgSrc => {
+            let img = document.createElement("img");
+            img.src = `image/${imgSrc}`; // Adjust path if necessary
+            img.style.top = `${Math.random() * 90}vh`;  // Random vertical position
+            img.style.left = `${Math.random() * 90}vw`; // Random horizontal position
+            img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`; // Slight random rotation
+            imageContainer.appendChild(img);
+        });
+    }
 
     positionHearts(); // Call the function to generate hearts
+    placeImages();
 });
