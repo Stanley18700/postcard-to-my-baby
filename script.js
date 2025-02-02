@@ -3,20 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const letterText = document.querySelector(".text p");
     const heart = document.querySelector(".heart");
     const imageContainer = document.querySelector(".background-images");
-    const backgroundHearts = document.querySelector(".background-hearts");
-
     const imageList = [
         "zhuzhu1.jpg", "zhuzhu2.jpg", "zhuzhu3.jpg",
-        "zhuzhu4.jpg", "zhuzhu5.jpg", "zhuzhu6.jpg",
-        "zhuzhu7.jpg", "zhuzhu8.jpg"
-    ];
+        "zhuzhu4.jpg","zhuzhu5.jpg","zhuzhu6.jpg",
+        "zhuzhu7.jpg","zhuzhu8.jpg"
+        ];
 
     // Typing Effect
-    let message = "ကခဂဃင , Your koe koe 💖";
+    let message = "ကခဂဃင ,Your koe koe 💖";
     let index = 0;
 
     function typeLetter() {
-        if (letterText && index < message.length) {
+        if (index < message.length) {
             letterText.innerHTML += message.charAt(index);
             index++;
             setTimeout(typeLetter, 100);
@@ -28,16 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
         envelope.classList.toggle("flap");
         if (envelope.classList.contains("flap")) {
             setTimeout(typeLetter, 1500);
-            playSound(); // Play envelope opening sound (optional)
-            createConfetti();
         }
     });
-
-    // Play sound effect (optional)
-    function playSound() {
-        let sound = new Audio("pop.mp3"); // Ensure pop.mp3 exists in the project folder
-        sound.play();
-    }
 
     // Heart Hover Effect
     heart.addEventListener("mouseover", function () {
@@ -48,7 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
         heart.style.transform = "scale(1)";
     });
 
-    // Confetti Effect
+    // Confetti Effect on Opening
+    envelope.addEventListener("click", function () {
+        if (envelope.classList.contains("flap")) {
+            createConfetti();
+        }
+    });
+
     function createConfetti() {
         for (let i = 0; i < 30; i++) {
             let confetti = document.createElement("div");
@@ -56,15 +52,19 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.appendChild(confetti);
             confetti.style.left = Math.random() * window.innerWidth + "px";
             confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
-            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.background = hsl(${Math.random() * 360}, 100%, 50%);
 
             setTimeout(() => {
                 confetti.remove();
             }, 4000);
         }
     }
+});
 
-    // Function to create floating hearts
+document.addEventListener("DOMContentLoaded", function () {
+    const backgroundHearts = document.querySelector(".background-hearts");
+
+    // Function to create a heart
     function createHeart() {
         const heart = document.createElement("div");
         heart.classList.add("heart-shape");
@@ -72,33 +72,33 @@ document.addEventListener("DOMContentLoaded", function () {
         const colors = ["#D70040", "#FFFFFF", "#FFD700"]; // Red, White, Gold
         heart.style.background = colors[Math.floor(Math.random() * colors.length)];
 
+        heart.style.setProperty("--heart-color", heart.style.background);
         return heart;
     }
 
+    // Function to position hearts at the top and make them fall
     function positionHearts() {
-        const numHearts = 50;
+        const numHearts = 100; // Number of hearts to create
         for (let i = 0; i < numHearts; i++) {
             const heart = createHeart();
-            heart.style.left = `${Math.random() * 100}%`;
-            heart.style.top = `${Math.random() * -50}%`;
-            heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
-            heart.style.animationDelay = `${Math.random() * 2}s`;
+            heart.style.left = ${Math.random() * 100}%; // Random horizontal position
+            heart.style.top = ${Math.random() * -50}%; // Start above the screen
+            heart.style.animationDuration = ${Math.random() * 3 + 2}s; // Random animation duration
+            heart.style.animationDelay = ${Math.random() * 2}s; // Random delay for staggered falling
             backgroundHearts.appendChild(heart);
         }
     }
-
-    // Function to place images randomly
     function placeImages() {
         imageList.forEach(imgSrc => {
             let img = document.createElement("img");
-            img.src = `images/${imgSrc}`;
-            img.style.top = `${Math.random() * 90}vh`;
-            img.style.left = `${Math.random() * 90}vw`;
-            img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+            img.src = images/${imgSrc}; // Adjust path if necessary
+            img.style.top = ${Math.random() * 90}vh;  // Random vertical position
+            img.style.left = ${Math.random() * 90}vw; // Random horizontal position
+            img.style.transform = rotate(${Math.random() * 20 - 10}deg); // Slight random rotation
             imageContainer.appendChild(img);
         });
     }
 
-    positionHearts();
+    positionHearts(); // Call the function to generate hearts
     placeImages();
 });
