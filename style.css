@@ -17,6 +17,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .container {
@@ -28,6 +31,7 @@ body {
 .envelope-wrapper {
   background: var(--bg-envelope-color);
   box-shadow: 0 0 40px var(--shadow-color);
+  position: relative;
 }
 
 .envelope {
@@ -73,51 +77,61 @@ body {
   padding: 20px 10px;
 }
 
-.text {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.letter > .text {
   color: var(--txt-color);
   text-align: left;
   font-size: 10px;
 }
 
-/* 🎯 Square Button Instead of Heart */
 .heart {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 30px; /* Make it square */
-  height: 30px;
+  width: 15px;
+  height: 15px;
   background: var(--heart-color);
   z-index: 4;
-  transform: translate(-50%, -50%);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transform: translate(-50%, -20%) rotate(45deg);
+  transition: transform 0.5s ease-in-out 1s;
   box-shadow: 0 1px 6px var(--shadow-color);
   cursor: pointer;
-  border-radius: 5px; /* Slight rounded edges */
 }
 
-.heart:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(252, 8, 231, 0.8);
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: var(--heart-color);
+  border-radius: 50%;
 }
 
-.flap .envelope::before {
+.heart:before {
+  top: -7.5px;
+}
+
+.heart:after {
+  right: 7.5px;
+}
+
+.flap > .envelope:before {
   transform: rotateX(180deg);
   z-index: 0;
 }
 
-.flap .letter {
+.flap > .envelope > .letter {
   bottom: 100px;
   transform: scale(1.5);
   transition-delay: 1s;
 }
 
-.flap .heart {
+.flap > .heart {
   transform: rotate(90deg);
   transition-delay: 0.4s;
 }
 
-/* Floating Hearts Fix */
+/* 🌟 Background Hearts Animation */
 .background-hearts {
   position: fixed;
   width: 100%;
@@ -129,12 +143,12 @@ body {
 
 .heart-shape {
   position: absolute;
-  width: var(--size, 15px);
-  height: var(--size, 15px);
+  width: 15px;
+  height: 15px;
   background: var(--heart-color);
   transform: rotate(45deg);
   animation: fall 5s linear infinite;
-  opacity: 0.9;
+  opacity: 0.7;
 }
 
 .heart-shape::before,
@@ -157,8 +171,25 @@ body {
   left: -7.5px;
 }
 
-/* 🎉 Falling Hearts Animation */
 @keyframes fall {
   0% { transform: translateY(-100%) rotate(45deg); opacity: 1; }
   100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+}
+
+/* Background Images */
+.background-images {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.background-images img {
+  position: absolute;
+  width: 120px;
+  height: auto;
+  opacity: 0.8;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
