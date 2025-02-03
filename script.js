@@ -6,7 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const imageList = [
         "zhuzhu1.jpg", "zhuzhu2.jpg", "zhuzhu3.jpg",
         "zhuzhu4.jpg", "zhuzhu5.jpg", "zhuzhu6.jpg",
-        "zhuzhu7.jpg", "zhuzhu8.jpg"
+        "zhuzhu7.jpg", "zhuzhu8.jpg", "zhuzhu9.jpg",
+        "zhuzhu10.jpg","zhuzhu11.jpg","zhuzhu12.jpg",
+        "zhuzhu13.jpg","zhuzhu14.jpg","zhuzhu15.jpg",
+        "zhuzhu16.jpg","zhuzhu17.jpg","zhuzhu18.jpg",
+        "zhuzhu19.jpg","zhuzhu20.jpg","zhuzhu21.jpg",
+        "zhuzhu22.jpg","zhuzhu23.jpg","zhuzhu24.jpg",
+        "zhuzhu25.jpg",
     ];
 
     // Typing Effect
