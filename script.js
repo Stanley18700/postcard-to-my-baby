@@ -15,6 +15,18 @@ document.addEventListener("DOMContentLoaded", function () {
         "zhuzhu25.jpg",
     ];
 
+    function isOverlapping(element1, element2) {
+        const rect1 = element1.getBoundingClientRect();
+        const rect2 = element2.getBoundingClientRect();
+
+        return !(
+            rect1.top > rect2.bottom ||
+            rect1.bottom < rect2.top ||
+            rect1.left > rect2.right ||
+            rect1.right < rect2.left
+        );
+    }
+
     // Typing Effect
     let message = "ကခဂဃင ,Your koe koe 💖";
     let index = 0;
@@ -78,31 +90,60 @@ document.addEventListener("DOMContentLoaded", function () {
         return heart;
     }
 
-    // Function to position hearts at the top and make them fall
+    
     function positionHearts() {
-        const numHearts = 100; // Number of hearts to create
+        const numHearts = 100;
         for (let i = 0; i < numHearts; i++) {
             const heart = createHeart();
-            heart.style.left = `${Math.random() * 100}%`; // Random horizontal position
-            heart.style.top = `${Math.random() * -50}%`; // Start above the screen
-            heart.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random animation duration
-            heart.style.animationDelay = `${Math.random() * 2}s`; // Random delay for staggered falling
+            heart.style.left = `${Math.random() * 100}%`; 
+            heart.style.top = `${Math.random() * -50}%`; 
+            heart.style.animationDuration = `${Math.random() * 3 + 2}s`; 
+            heart.style.animationDelay = `${Math.random() * 2}s`; 
             document.querySelector(".background-hearts").appendChild(heart);
         }
     }
 
     // Function to place images randomly
     function placeImages() {
-        imageList.forEach(imgSrc => {
+        const placedImages = [];
+        
+       imageList.forEach(imgSrc => {
             let img = document.createElement("img");
-            img.src = `images/${imgSrc}`; // Adjust path if necessary
-            img.style.top = `${Math.random() * 90}vh`;  // Random vertical position
-            img.style.left = `${Math.random() * 90}vw`; // Random horizontal position
-            img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`; // Slight random rotation
-            imageContainer.appendChild(img);
+            img.src = `image/${imgSrc}`; 
+            img.style.position = "absolute";
+            img.style.width = "120px"; 
+            img.style.height = "auto";
+            img.style.opacity = "0.8"; 
+            img.style.borderRadius = "10px";
+            img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
+
+            let overlap;
+            let attempts = 0;
+            const maxAttempts = 100; 
+
+           do {
+                overlap = false;
+                img.style.top = `${Math.random() * (window.innerHeight - 120)}px`; 
+                img.style.left = `${Math.random() * (window.innerWidth - 120)}px`; 
+                img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`; 
+               
+                for (const placedImg of placedImages) {
+                    if (isOverlapping(img, placedImg)) {
+                        overlap = true;
+                        break;
+                    }
+                }
+
+                attempts++;
+            } while (overlap && attempts < maxAttempts);
+
+           if (!overlap) {
+                imageContainer.appendChild(img);
+                placedImages.push(img);
+            }
         });
     }
 
-    positionHearts(); // Call the function to generate hearts
-    placeImages(); // Call the function to place images
+    positionHearts(); 
+    placeImages(); 
 });
