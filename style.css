@@ -143,41 +143,40 @@ body {
 
 .heart-shape {
   position: absolute;
-  width: 15px;
-  height: 15px;
-  background: var(--heart-color);
-  transform: rotate(45deg);
-  animation: fall 5s linear infinite;
-  opacity: 0.7;
+  width: 20px;
+  height: 20px;
   background: linear-gradient(
     135deg,
     rgb(252, 8, 231) 50%,
     yellow 50%,
     white 70%,
     red 90%
-    ):
+  );
   background-size: 200% 200%;
-  backgrounf-position: 100% 100%;
+  background-position: 100% 100%;
+  transform: rotate(45deg);
+  animation: fall 5s linear infinite;
+  opacity: 0.7;
 }
 
 .heart-shape::before,
 .heart-shape::after {
   content: "";
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   background: inherit;
   border-radius: 50%;
 }
 
 .heart-shape::before {
-  top: -7.5px;
+  top: -10px;
   left: 0;
 }
 
 .heart-shape::after {
   top: 0;
-  left: -7.5px;
+  left: -10px;
 }
 
 @keyframes fall {
