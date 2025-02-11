@@ -98,21 +98,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function placeImages() {
-        const placedImages = [];
+    const placedImages = [];
 
-        imageList.forEach(imgSrc => {
-            let img = document.createElement("img");
-            img.src = `images/${imgSrc}`;
-            img.style.position = "absolute";
-            img.style.width = "120px";
-            img.style.height = "auto";
-            img.style.opacity = "0.8";
-            img.style.borderRadius = "10px";
-            img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
+    imageList.forEach(imgSrc => {
+        let img = document.createElement("img");
+        img.src = `images/${imgSrc}`;
+        img.style.position = "absolute";
+        img.style.width = "120px";
+        img.style.height = "auto";
+        img.style.opacity = "0.8";
+        img.style.borderRadius = "10px";
+        img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
 
+        img.onload = function () {
             let overlap;
             let attempts = 0;
             const maxAttempts = 100;
+            const buffer = 10; // Space around images to prevent touching
 
             do {
                 overlap = false;
@@ -120,8 +122,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 img.style.left = `${Math.random() * (window.innerWidth - 120)}px`;
                 img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
 
+                const imgRect = img.getBoundingClientRect();
+
                 for (const placedImg of placedImages) {
-                    if (isOverlapping(img, placedImg)) {
+                    const placedRect = placedImg.getBoundingClientRect();
+
+                    if (
+                        imgRect.top < placedRect.bottom + buffer &&
+                        imgRect.bottom > placedRect.top - buffer &&
+                        imgRect.left < placedRect.right + buffer &&
+                        imgRect.right > placedRect.left - buffer
+                    ) {
                         overlap = true;
                         break;
                     }
@@ -134,8 +145,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 imageContainer.appendChild(img);
                 placedImages.push(img);
             }
-        });
-    }
+        };
+    });
+}
 
     positionHearts();
     placeImages();
