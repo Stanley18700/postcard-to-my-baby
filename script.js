@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let yOffset = window.innerHeight - 150;
         imageList.forEach(imgSrc => {
             let img = document.createElement("img");
-            img.src = `image/${imgSrc}`;
+            img.src = `images/${imgSrc}`;
             img.style.position = "absolute";
             img.style.width = "120px";
             img.style.height = "auto";
