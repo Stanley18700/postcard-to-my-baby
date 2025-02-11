@@ -27,17 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
+    let message = "ကခဂဃင ,Your koe koe 💖";
+    let index = 0;
+
     function typeLetter() {
-        let message = "ကခဂဃင ,Your koe koe 💖";
-        let index = 0;
-        function type() {
-            if (index < message.length) {
-                letterText.innerHTML += message.charAt(index);
-                index++;
-                setTimeout(type, 100);
-            }
+        if (index < message.length) {
+            letterText.innerHTML += message.charAt(index);
+            index++;
+            setTimeout(typeLetter, 100);
         }
-        type();
     }
 
     envelope.addEventListener("click", () => {
@@ -47,10 +45,43 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    heart.addEventListener("mouseover", function () {
+        heart.style.transform = "scale(1.2)";
+    });
+
+    heart.addEventListener("mouseleave", function () {
+        heart.style.transform = "scale(1)";
+    });
+
+    envelope.addEventListener("click", function () {
+        if (envelope.classList.contains("flap")) {
+            createConfetti();
+        }
+    });
+
+    function createConfetti() {
+        for (let i = 0; i < 30; i++) {
+            let confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            document.body.appendChild(confetti);
+            confetti.style.left = Math.random() * window.innerWidth + "px";
+            confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 4000);
+        }
+    }
+
     function createHeart() {
         const heart = document.createElement("div");
         heart.classList.add("heart-shape");
-        heart.style.background = "#D70040";
+
+        const colors = ["#D70040", "#FFFFFF", "#FFD700"];
+        heart.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+        heart.style.setProperty("--heart-color", heart.style.background);
         return heart;
     }
 
@@ -62,28 +93,47 @@ document.addEventListener("DOMContentLoaded", function () {
             heart.style.top = `${Math.random() * -50}%`;
             heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
             heart.style.animationDelay = `${Math.random() * 2}s`;
-            heart.style.width = "10px";
-            heart.style.height = "10px";
-            heart.style.boxShadow = "0 0 5px rgba(255, 255, 255, 0.8)";
             document.querySelector(".background-hearts").appendChild(heart);
         }
     }
 
     function placeImages() {
-        let yOffset = window.innerHeight - 150;
+        const placedImages = [];
+
         imageList.forEach(imgSrc => {
             let img = document.createElement("img");
-            img.src = `images/${imgSrc}`;
+            img.src = `image/${imgSrc}`;
             img.style.position = "absolute";
             img.style.width = "120px";
             img.style.height = "auto";
             img.style.opacity = "0.8";
             img.style.borderRadius = "10px";
             img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
-            img.style.top = `${yOffset}px`;
-            img.style.left = `${Math.random() * (window.innerWidth - 120)}px`;
-            img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-            imageContainer.appendChild(img);
+
+            let overlap;
+            let attempts = 0;
+            const maxAttempts = 100;
+
+            do {
+                overlap = false;
+                img.style.top = `${Math.random() * (window.innerHeight - 200) + 100}px`;
+                img.style.left = `${Math.random() * (window.innerWidth - 120)}px`;
+                img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+
+                for (const placedImg of placedImages) {
+                    if (isOverlapping(img, placedImg)) {
+                        overlap = true;
+                        break;
+                    }
+                }
+
+                attempts++;
+            } while (overlap && attempts < maxAttempts);
+
+            if (!overlap) {
+                imageContainer.appendChild(img);
+                placedImages.push(img);
+            }
         });
     }
 
