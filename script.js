@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let col = position % cols;
 
             let img = document.createElement("img");
-            img.src = `image/${imgSrc}`;
+            img.src = `images/${imgSrc}`;
             img.style.position = "absolute";
             img.style.width = `${imageSize}px`;
             img.style.height = "auto";
