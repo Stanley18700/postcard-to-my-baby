@@ -186,7 +186,7 @@ body {
 
 /* Background Images */
 .background-images {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100vh;
   overflow: hidden;
@@ -194,7 +194,7 @@ body {
 }
 
 .background-images img {
-  position: absolute;
+  position: relative;
   width: 120px;
   height: auto;
   opacity: 0.8;
