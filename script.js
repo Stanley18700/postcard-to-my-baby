@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         imageList.forEach(imgSrc => {
             let img = document.createElement("img");
-            img.src = `image/${imgSrc}`;
+            img.src = `images/${imgSrc}`;
             img.style.position = "absolute";
             img.style.width = `${imageWidth}px`;
             img.style.height = "auto";
