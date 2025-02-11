@@ -93,12 +93,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const numRows = Math.floor(window.innerHeight / 140); // Rows based on image height + margin
     const positions = [];
 
+    const totalWidth = numCols * 140; 
+    const startX = (window.innerWidth - totalWidth) / 2;
+
     // Generate grid positions
     for (let row = 0; row < numRows; row++) {
         for (let col = 0; col < numCols; col++) {
             positions.push({
-                top: row * 140 + 50,  // Offset to prevent touching the edge
-                left: col * 140 + 20
+                top: row * 140 + 50,  // Offset from top
+                left: startX + col * 140  // Center images horizontally
             });
         }
     }
