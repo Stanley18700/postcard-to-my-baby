@@ -15,18 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "zhuzhu25.jpg",
     ];
 
-    function isOverlapping(element1, element2) {
-        const rect1 = element1.getBoundingClientRect();
-        const rect2 = element2.getBoundingClientRect();
-
-        return !(
-            rect1.top > rect2.bottom ||
-            rect1.bottom < rect2.top ||
-            rect1.left > rect2.right ||
-            rect1.right < rect2.left
-        );
-    }
-
     let message = "ကခဂဃင ,Your koe koe 💖";
     let index = 0;
 
@@ -98,55 +86,45 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function placeImages() {
-    const placedImages = [];
+    const numCols = Math.floor(window.innerWidth / 140); // Columns based on image width + margin
+    const numRows = Math.floor(window.innerHeight / 140); // Rows based on image height + margin
+    const positions = [];
 
-    imageList.forEach(imgSrc => {
+    // Generate grid positions
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            positions.push({
+                top: row * 140 + 50,  // Offset to prevent touching the edge
+                left: col * 140 + 20
+            });
+        }
+    }
+
+    // Shuffle positions randomly (Fisher-Yates Algorithm)
+    for (let i = positions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [positions[i], positions[j]] = [positions[j], positions[i]];
+    }
+
+    // Place images without overlap
+    const placedImages = Math.min(imageList.length, positions.length);
+    for (let i = 0; i < placedImages; i++) {
         let img = document.createElement("img");
-        img.src = `images/${imgSrc}`;
+        img.src = `images/${imageList[i]}`;
         img.style.position = "absolute";
         img.style.width = "120px";
         img.style.height = "auto";
         img.style.opacity = "0.8";
         img.style.borderRadius = "10px";
         img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
+        img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
 
-        img.onload = function () {
-            let overlap;
-            let attempts = 0;
-            const maxAttempts = 100;
-            const buffer = 10; // Space around images to prevent touching
+        // Assign non-overlapping position
+        img.style.top = `${positions[i].top}px`;
+        img.style.left = `${positions[i].left}px`;
 
-            do {
-                overlap = false;
-                img.style.top = `${Math.random() * (window.innerHeight - 200) + 100}px`;
-                img.style.left = `${Math.random() * (window.innerWidth - 120)}px`;
-                img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-
-                const imgRect = img.getBoundingClientRect();
-
-                for (const placedImg of placedImages) {
-                    const placedRect = placedImg.getBoundingClientRect();
-
-                    if (
-                        imgRect.top < placedRect.bottom + buffer &&
-                        imgRect.bottom > placedRect.top - buffer &&
-                        imgRect.left < placedRect.right + buffer &&
-                        imgRect.right > placedRect.left - buffer
-                    ) {
-                        overlap = true;
-                        break;
-                    }
-                }
-
-                attempts++;
-            } while (overlap && attempts < maxAttempts);
-
-            if (!overlap) {
-                imageContainer.appendChild(img);
-                placedImages.push(img);
-            }
-        };
-    });
+        imageContainer.appendChild(img);
+    }
 }
 
     positionHearts();
