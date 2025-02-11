@@ -92,43 +92,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Function to place images randomly
-    function placeImages() {
-        const cols = Math.floor(window.innerWidth / 150); // Adjust grid columns dynamically
-        const rows = Math.floor(window.innerHeight / 150); // Adjust grid rows dynamically
-        const imageSize = 120;
-        const padding = 20;
-        let positions = [];
+    const rows = 5;
+        const cols = Math.ceil(imageList.length / rows);
+        const imageWidth = 120;
+        const spacing = 10;
+        const startX = (window.innerWidth - (cols * (imageWidth + spacing))) / 2;
+        const startY = window.innerHeight - (rows * (imageWidth + spacing));
 
-        for (let i = 0; i < rows * cols; i++) {
-            positions.push(i);
-        }
-
-        imageList.forEach((imgSrc) => {
-            if (positions.length === 0) return; // Stop if grid is full
-
-            let randomIndex = Math.floor(Math.random() * positions.length);
-            let position = positions.splice(randomIndex, 1)[0];
-
-            let row = Math.floor(position / cols);
-            let col = position % cols;
-
+        imageList.forEach((imgSrc, index) => {
             let img = document.createElement("img");
             img.src = `images/${imgSrc}`;
             img.style.position = "absolute";
-            img.style.width = `${imageSize}px`;
+            img.style.width = `${imageWidth}px`;
             img.style.height = "auto";
             img.style.opacity = "0.8";
             img.style.borderRadius = "10px";
             img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
+            
+            let row = Math.floor(index / cols);
+            let col = index % cols;
 
-            img.style.left = `${col * (imageSize + padding)}px`;
-            img.style.top = `${row * (imageSize + padding)}px`;
-            img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+            img.style.left = `${startX + col * (imageWidth + spacing)}px`;
+            img.style.top = `${startY + row * (imageWidth + spacing)}px`;
 
+            img.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
             imageContainer.appendChild(img);
         });
     }
-
     positionHearts(); 
     placeImages(); 
 });
