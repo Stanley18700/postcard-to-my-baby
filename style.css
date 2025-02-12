@@ -75,13 +75,13 @@ body{
 }
 .heart {
   position: absolute;
-  top: 50%;
+  top: 51%;
   left: 50%;
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   background: var(--heart-color);
   z-index: 4;
-  transform: translate(-50%, -20%) rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
   transition: transform 0.5s ease-in-out 1s;
   box-shadow: 0 1px 6px var(--shadow-color);
   cursor: pointer;
@@ -90,8 +90,8 @@ body{
 .heart:after {
   content: "";
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   background-color: var(--heart-color);
   border-radius: 50%;
 }
@@ -142,8 +142,8 @@ body{
 /* Base Heart Design */
 .heart-shape {
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 18px;
   background: var(--heart-color);
   transform: rotate(45deg);
   animation: fall 5s linear infinite;
@@ -154,7 +154,7 @@ body{
 .heart-shape::after {
   content: "";
   position: absolute;
-  width: 15px;
+  width: 14px;
   height: 15px;
   background: var (--heart-color);
   border-radius: 50%;
@@ -191,8 +191,8 @@ body{
 /* Base Heart Design */
 .heart-shape {
   position: absolute;
-  width: 15px; /* Smaller hearts */
-  height: 15px;
+  width: 12px; /* Smaller hearts */
+  height: 13px;
   background: rgb(252, 8, 231);
   transform: rotate(45deg);
   animation: fall 5s linear infinite; /* Apply falling animation */
@@ -203,8 +203,8 @@ body{
 .heart-shape::after {
   content: "";
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 13px;
+  height: 13px;
   background: rgb(252, 8, 231);
   border-radius: 50%;
 }
