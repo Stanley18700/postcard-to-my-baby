@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const heart = document.createElement("div");
         heart.classList.add("heart-shape");
 
-        const colors = ["#D70040", "#FFFFFF", "#FFD700"];
+        const colors = ["#B76E79", "#FFFFFF", "#FFFF33"];
         heart.style.background = colors[Math.floor(Math.random() * colors.length)];
 
         heart.style.setProperty("--heart-color", heart.style.background);
