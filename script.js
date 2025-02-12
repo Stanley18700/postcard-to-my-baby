@@ -41,12 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             envelope.classList.add("flap");
             setTimeout(() => {
+                
                 letter.style.bottom = "100px"; // Move letter out of the envelope
                 letter.style.transform = "scale(1.5)"; // Make it bigger when out
                 typeLetter();
+                placeImages();
                 setTimeout(createConfetti,createHeart, 1500);
                 positionHearts();
-                placeImages();
+                
             }, 700);
             
         }
@@ -88,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function positionHearts() {
-        const numHearts = 200;
+        const numHearts = 300;
         for (let i = 0; i < numHearts; i++) {
             const heart = createHeart();
             heart.style.left = `${Math.random() * 100}%`;
