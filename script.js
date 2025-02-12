@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let maxImages = Math.min(imageList.length, 25); // Limit to 25 images
         let imgWidth = 120; // Approximate image width
         let imgHeight = 150; // Approximate image height
-        let padding = 10; // Extra spacing to prevent overlap
+        let padding = 5; // Extra spacing to prevent overlap
     
         for (let i = 0; i < maxImages; i++) {
             let img = document.createElement("img");
