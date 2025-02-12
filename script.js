@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let message = "ကခဂဃင ,Your koe koe 💖";
     let index = 0;
 
-    // Typing animation for the letter
     function typeLetter() {
         if (index < message.length) {
             letterText.innerHTML += message.charAt(index);
@@ -30,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Envelope flap and letter opening animation
     envelope.addEventListener("click", () => {
         envelope.classList.toggle("flap");
         if (envelope.classList.contains("flap")) {
@@ -38,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Heart hover effect
     heart.addEventListener("mouseover", function () {
         heart.style.transform = "scale(1.2)";
     });
@@ -47,14 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
         heart.style.transform = "scale(1)";
     });
 
-    // Confetti effect when the envelope is opened
     envelope.addEventListener("click", function () {
         if (envelope.classList.contains("flap")) {
             createConfetti();
         }
     });
 
-    // Create confetti
     function createConfetti() {
         for (let i = 0; i < 30; i++) {
             let confetti = document.createElement("div");
@@ -70,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Create floating hearts
     function createHeart() {
         const heart = document.createElement("div");
         heart.classList.add("heart-shape");
@@ -82,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return heart;
     }
 
-    // Position floating hearts
     function positionHearts() {
         const numHearts = 100;
         for (let i = 0; i < numHearts; i++) {
@@ -95,82 +88,51 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Place background images in a grid
     function placeImages() {
-        const numCols = Math.floor(window.innerWidth / 140); // Columns based on image width + margin
-        const numRows = Math.floor(window.innerHeight / 140); // Rows based on image height + margin
-        const positions = [];
+    const numCols = Math.floor(window.innerWidth / 140); // Columns based on image width + margin
+    const numRows = Math.floor(window.innerHeight / 140); // Rows based on image height + margin
+    const positions = [];
 
-        const totalWidth = numCols * 140;
-        const startX = (window.innerWidth - totalWidth) / 2;
+    const totalWidth = numCols * 140; 
+    const startX = (window.innerWidth - totalWidth) / 2;
 
-        // Generate grid positions
-        for (let row = 0; row < numRows; row++) {
-            for (let col = 0; col < numCols; col++) {
-                positions.push({
-                    top: row * 140 + 50,  // Offset from top
-                    left: startX + col * 140  // Center images horizontally
-                });
-            }
-        }
-
-        // Shuffle positions randomly (Fisher-Yates Algorithm)
-        for (let i = positions.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [positions[i], positions[j]] = [positions[j], positions[i]];
-        }
-
-        // Place images without overlap
-        const placedImages = Math.min(imageList.length, positions.length);
-        for (let i = 0; i < placedImages; i++) {
-            let img = document.createElement("img");
-            img.src = `images/${imageList[i]}`;
-            img.style.position = "absolute";
-            img.style.width = "120px";
-            img.style.height = "auto";
-            img.style.opacity = "0.8";
-            img.style.borderRadius = "10px";
-            img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
-            img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-
-            // Assign non-overlapping position
-            img.style.top = `${positions[i].top}px`;
-            img.style.left = `${positions[i].left}px`;
-
-            imageContainer.appendChild(img);
+    // Generate grid positions
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            positions.push({
+                top: row * 140 + 50,  // Offset from top
+                left: startX + col * 140  // Center images horizontally
+            });
         }
     }
 
-    // Show loading spinner
-    function showLoading() {
-        const loading = document.createElement("div");
-        loading.classList.add("loading");
-        document.body.appendChild(loading);
+    // Shuffle positions randomly (Fisher-Yates Algorithm)
+    for (let i = positions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [positions[i], positions[j]] = [positions[j], positions[i]];
     }
 
-    // Hide loading spinner
-    function hideLoading() {
-        const loading = document.querySelector(".loading");
-        if (loading) loading.remove();
+    // Place images without overlap
+    const placedImages = Math.min(imageList.length, positions.length);
+    for (let i = 0; i < placedImages; i++) {
+        let img = document.createElement("img");
+        img.src = `images/${imageList[i]}`;
+        img.style.position = "absolute";
+        img.style.width = "120px";
+        img.style.height = "auto";
+        img.style.opacity = "0.8";
+        img.style.borderRadius = "10px";
+        img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
+        img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+
+        // Assign non-overlapping position
+        img.style.top = `${positions[i].top}px`;
+        img.style.left = `${positions[i].left}px`;
+
+        imageContainer.appendChild(img);
     }
+}
 
-    // Reset button functionality
-    const resetButton = document.createElement("button");
-    resetButton.innerHTML = "Reset";
-    resetButton.classList.add("reset-button");
-    document.body.appendChild(resetButton);
-
-    resetButton.addEventListener("click", () => {
-        envelope.classList.remove("flap");
-        letterText.innerHTML = "";
-        index = 0;
-    });
-
-    // Initialize the page
-    showLoading();
-    setTimeout(() => {
-        hideLoading();
-        positionHearts();
-        placeImages();
-    }, 2000); // Simulate loading delay
+    positionHearts();
+    placeImages();
 });
