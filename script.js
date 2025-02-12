@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "zhuzhu16.jpg", "zhuzhu17.jpg", "zhuzhu18.jpg",
         "zhuzhu19.jpg", "zhuzhu20.jpg", "zhuzhu21.jpg",
         "zhuzhu22.jpg", "zhuzhu23.jpg", "zhuzhu24.jpg",
+        "zhuzhu25.jpg", "zhuzhu26.jpg", "zhuzhu27.jpg",
+        "zhuzhu28.jpg", "zhuzhu29.jpg", "zhuzhu30.jpg",
+        "zhuzhu31.jpg", "zhuzhu32.jpg", "zhuzhu33.jpg",
+        "zhuzhu34.jpg", "zhuzhu35.jpg",
     ];
 
     let message = "ကခဂဃင ,Your koe koe 💖";
@@ -89,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
         imageContainer.innerHTML = ""; // Clear existing images
         let placedImages = []; // Store placed image positions
     
-        let maxImages = Math.min(imageList.length, 25); // Limit to 25 images
+        let maxImages = imageList.length; // Use all images
         let imgWidth = 120; // Approximate image width
         let imgHeight = 150; // Approximate image height
         let padding = 5; // Extra spacing to prevent overlap
@@ -127,8 +131,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     placedImages.push({ left: leftPos, top: topPos });
                     placed = true;
                 }
-    
                 maxAttempts--;
+            }
+    
+            // If still not placed, allow overlapping
+            if (!placed) {
+                img.style.left = `${Math.random() * (window.innerWidth - imgWidth)}px`;
+                img.style.top = `${Math.random() * (window.innerHeight - imgHeight)}px`;
             }
     
             // Random rotation
@@ -137,6 +146,14 @@ document.addEventListener("DOMContentLoaded", function () {
             imageContainer.appendChild(img);
         }
     }
+    
+    
+    function handleResize() {
+        placeImages();
+    }
+    
+    window.addEventListener("resize", handleResize);
+    
     
 
     positionHearts();
