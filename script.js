@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "zhuzhu31.jpg", "zhuzhu32.jpg",
     ];
 
-    let message = "ကခဂဃင ,Your koe koe 💖";
+    let message = "အသက်ကြီးလာလေ ပိုပိုပင်ပန်းလာရလေပဲနော် စိုက်ပျိုးသမျှက အသီးအပွင့်ပြန်ဖြစ်မှာမို့လို့ အားတင်းထားပါဦး နောင်ချစ်သူများနေ့တွေတိုင်းကိုလည်း အတူတူ ဖြတ်ကျော်သွားချင်ပါတယ်,Your koe koe💖";
     let index = 0;
 
     function typeLetter() {
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function positionHearts() {
-        const numHearts = 100;
+        const numHearts = 300;
         for (let i = 0; i < numHearts; i++) {
             const heart = createHeart();
             heart.style.left = `${Math.random() * 100}%`;
