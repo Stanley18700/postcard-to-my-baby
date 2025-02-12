@@ -13,7 +13,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: linear-gradient(135deg, #FFC0CB, #FF69B4);
+  background: var(--bg-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,7 +157,6 @@ body {
   transform: rotate(45deg);
   animation: fall 5s linear infinite;
   opacity: 0.7;
-  animation-delay: calc(var(--delay, 0) * 1s);
 }
 
 .heart-shape::before,
@@ -182,23 +181,24 @@ body {
 
 @keyframes fall {
   0% { transform: translateY(-100%) rotate(45deg); opacity: 1; }
-  50% { opacity: 0.7; }
   100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
 }
 
 /* Background Images */
 .background-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center images */
+    align-items: center;
+    gap: 10px; /* Maintain spacing between images */
     padding: 20px;
     max-width: 100vw;
-    overflow-y: auto;
-    max-height: 100vh;
+    overflow: hidden;
 }
 
+
 .background-images img {
-    width: 100%;
+    width: 120px;
     height: auto;
     opacity: 0.9;
     border-radius: 10px;
@@ -207,6 +207,7 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
+/* Add some hover effects for better interaction */
 .background-images img:hover {
     transform: scale(1.05) rotate(calc(var(--random-rotation, 0deg)));
 }
@@ -214,43 +215,7 @@ body {
 /* Responsive Design: Adjust layout for smaller screens */
 @media (max-width: 768px) {
     .background-images {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        flex-direction: column; /* Stack images on smaller screens */
+        align-items: center;
     }
-}
-
-/* Loading Spinner */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.loading {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    border: 4px solid var(--heart-color);
-    border-top: 4px solid transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-/* Reset Button */
-.reset-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: var(--heart-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.reset-button:hover {
-    background-color: #e60000;
 }
