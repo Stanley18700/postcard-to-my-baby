@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
         "zhuzhu10.jpg", "zhuzhu11.jpg", "zhuzhu12.jpg",
         "zhuzhu13.jpg", "zhuzhu14.jpg", "zhuzhu15.jpg",
         "zhuzhu16.jpg", "zhuzhu17.jpg", "zhuzhu18.jpg",
-        "zhuzhu19.jpg", "zhuzhu20.jpg",
+        "zhuzhu19.jpg", "zhuzhu20.jpg", "zhuzhu21.jpg",
+        "zhuzhu22.jpg", "zhuzhu23.jpg", "zhuzhu24.jpg",
     ];
 
     let message = "ကခဂဃင ,Your koe koe 💖";
@@ -65,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const heart = document.createElement("div");
         heart.classList.add("heart-shape");
 
-        const colors = ["#B76E79", "#FFFFFF", "#FFFF33"];
+        const colors = ["#FFFF33", "#FFFDD0", "#FFFAFA"];
         heart.style.background = colors[Math.floor(Math.random() * colors.length)];
 
         heart.style.setProperty("--heart-color", heart.style.background);
