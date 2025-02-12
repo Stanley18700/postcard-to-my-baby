@@ -41,7 +41,7 @@ body{
   border-right: 150px solid transparent;
   border-left: 150px solid transparent;
   transform-origin: top;
-  transition: all 0.5s ease-in-out 0.7s;
+  transition: all 0.5s ease-in-out 1s;
 }
 .envelope-wrapper > .envelope::after {
   content: "";
@@ -57,12 +57,12 @@ body{
 .envelope > .letter {
   position: absolute;
   right: 20%;
-  bottom: 0;
+  bottom: 1%;
   width: 54%;
   height: 80%;
   background: var(--primary);
   text-align: center;
-  transition: all 1s ease-in-out;
+  transition: all 1.5s ease-in-out;
   box-shadow: 0 0 5px var(--shadow-color);
   padding: 20px 10px;
 }
