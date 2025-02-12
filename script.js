@@ -88,50 +88,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function placeImages() {
-    const numCols = Math.floor(window.innerWidth / 140); // Columns based on image width + margin
-    const numRows = Math.floor(window.innerHeight / 140); // Rows based on image height + margin
-    const positions = [];
-
-    const totalWidth = numCols * 140; 
-    const startX = (window.innerWidth - totalWidth) / 2;
-
-    // Generate grid positions
-    for (let row = 0; row < numRows; row++) {
-        for (let col = 0; col < numCols; col++) {
-            positions.push({
-                top: row * 140 + 50,  // Offset from top
-                left: startX + col * 140  // Center images horizontally
-            });
-        }
+     function placeImages() {
+        imageContainer.innerHTML = ""; // Clear existing images
+        imageList.forEach((imageSrc) => {
+            let img = document.createElement("img");
+            img.src = `images/${imageSrc}`;
+            img.style.width = "120px";
+            img.style.height = "auto";
+            img.style.opacity = "0.8";
+            img.style.borderRadius = "10px";
+            img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
+            img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+            imageContainer.appendChild(img);
+        });
     }
-
-    // Shuffle positions randomly (Fisher-Yates Algorithm)
-    for (let i = positions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [positions[i], positions[j]] = [positions[j], positions[i]];
-    }
-
-    // Place images without overlap
-    const placedImages = Math.min(imageList.length, positions.length);
-    for (let i = 0; i < placedImages; i++) {
-        let img = document.createElement("img");
-        img.src = `images/${imageList[i]}`;
-        img.style.position = "absolute";
-        img.style.width = "120px";
-        img.style.height = "auto";
-        img.style.opacity = "0.8";
-        img.style.borderRadius = "10px";
-        img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
-        img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-
-        // Assign non-overlapping position
-        img.style.top = `${positions[i].top}px`;
-        img.style.left = `${positions[i].left}px`;
-
-        imageContainer.appendChild(img);
-    }
-}
 
     positionHearts();
     placeImages();
