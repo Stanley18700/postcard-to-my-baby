@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 typeLetter();
                 setTimeout(createConfetti,createHeart, 1500);
                 positionHearts();
+                placeImages();
             }, 700);
             
         }
@@ -87,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function positionHearts() {
-        const numHearts = 100;
+        const numHearts = 300;
         for (let i = 0; i < numHearts; i++) {
             const heart = createHeart();
             heart.style.left = `${Math.random() * 100}%`;
@@ -166,5 +167,5 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     
-    placeImages();
+    
 });
