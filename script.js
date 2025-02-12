@@ -12,10 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "zhuzhu16.jpg", "zhuzhu17.jpg", "zhuzhu18.jpg",
         "zhuzhu19.jpg", "zhuzhu20.jpg", "zhuzhu21.jpg",
         "zhuzhu22.jpg", "zhuzhu23.jpg", "zhuzhu24.jpg",
-        "zhuzhu25.jpg", "zhuzhu26.jpg", "zhuzhu27.jpg",
-        "zhuzhu28.jpg", "zhuzhu29.jpg", "zhuzhu30.jpg",
-        "zhuzhu31.jpg", "zhuzhu32.jpg", "zhuzhu33.jpg",
-        "zhuzhu34.jpg", "zhuzhu35.jpg",
     ];
 
     let message = "ကခဂဃင ,Your koe koe 💖";
@@ -93,32 +89,35 @@ document.addEventListener("DOMContentLoaded", function () {
         imageContainer.innerHTML = ""; // Clear existing images
         let placedImages = []; // Store placed image positions
     
-        imageList.forEach((imageSrc) => {
+        let maxImages = Math.min(imageList.length, 25); // Limit to 25 images
+        let imgWidth = 120; // Approximate image width
+        let imgHeight = 150; // Approximate image height
+        let padding = 10; // Extra spacing to prevent overlap
+    
+        for (let i = 0; i < maxImages; i++) {
             let img = document.createElement("img");
-            img.src = `images/${imageSrc}`;
-            img.style.width = "120px";
+            img.src = `images/${imageList[i]}`;
+            img.style.width = imgWidth + "px";
             img.style.height = "auto";
             img.style.opacity = "0.8";
             img.style.borderRadius = "10px";
             img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
             img.style.position = "absolute";
     
-            let maxAttempts = 50; // Maximum attempts to find a non-overlapping position
             let placed = false;
-            let imgWidth = 120; // Width of image
-            let imgHeight = 150; // Approximate height of image
+            let maxAttempts = 100; // Tries to find a good position
     
             while (!placed && maxAttempts > 0) {
-                let leftPos = Math.random() * (window.innerWidth - imgWidth);
-                let topPos = Math.random() * (window.innerHeight - imgHeight);
+                let leftPos = Math.random() * (window.innerWidth - imgWidth - padding);
+                let topPos = Math.random() * (window.innerHeight - imgHeight - padding);
     
-                // Check if this position overlaps with existing images
+                // Check if new position overlaps with existing images
                 let overlapping = placedImages.some(existing => {
                     return (
-                        leftPos < existing.left + imgWidth &&
-                        leftPos + imgWidth > existing.left &&
-                        topPos < existing.top + imgHeight &&
-                        topPos + imgHeight > existing.top
+                        leftPos < existing.left + imgWidth + padding &&
+                        leftPos + imgWidth + padding > existing.left &&
+                        topPos < existing.top + imgHeight + padding &&
+                        topPos + imgHeight + padding > existing.top
                     );
                 });
     
@@ -136,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
             img.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
     
             imageContainer.appendChild(img);
-        });
+        }
     }
     
 
