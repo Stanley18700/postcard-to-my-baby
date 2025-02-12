@@ -26,9 +26,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     envelope.addEventListener("click", () => {
-        envelope.classList.toggle("flap");
+        const letter = document.querySelector(".letter");
+    
         if (envelope.classList.contains("flap")) {
-            setTimeout(typeLetter, 1500);
+            envelope.classList.remove("flap");
+            letter.style.bottom = "0"; // Move letter back inside the envelope
+            letter.style.transform = "scale(1)"; // Reset scaling
+            setTimeout(() => {
+                envelope.style.zIndex = "2"; // Ensure lid is above
+            }, 500);
+        } else {
+            envelope.classList.add("flap");
+            setTimeout(() => {
+                letter.style.bottom = "100px"; // Move letter out of the envelope
+                letter.style.transform = "scale(1.5)"; // Make it bigger when out
+                typeLetter();
+                setTimeout(createConfetti, 1500);
+            }, 700);
+            
         }
     });
 
@@ -40,12 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
         heart.style.transform = "scale(1)";
     });
 
-    envelope.addEventListener("click", function () {
-        if (!envelope.classList.contains("flap")) {
-            envelope.classList.add("flap");
-            setTimeout(createConfetti, 1500);
-        }
-    });
 
     function createConfetti() {
         for (let i = 0; i < 30; i++) {
