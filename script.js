@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
         "zhuzhu16.jpg", "zhuzhu17.jpg", "zhuzhu18.jpg",
         "zhuzhu19.jpg", "zhuzhu20.jpg", "zhuzhu21.jpg",
         "zhuzhu22.jpg", "zhuzhu23.jpg", "zhuzhu24.jpg",
+        "zhuzhu25.jpg", "zhuzhu26.jpg", "zhuzhu27.jpg",
+        "zhuzhu28.jpg", "zhuzhu29.jpg", "zhuzhu30.jpg",
+        "zhuzhu31.jpg", "zhuzhu32.jpg",
     ];
 
     let message = "ကခဂဃင ,Your koe koe 💖";
@@ -41,7 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 letter.style.bottom = "100px"; // Move letter out of the envelope
                 letter.style.transform = "scale(1.5)"; // Make it bigger when out
                 typeLetter();
-                setTimeout(createConfetti, 1500);
+                setTimeout(createConfetti,createHeart, 1500);
+                positionHearts();
             }, 700);
             
         }
@@ -161,6 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
     
 
-    positionHearts();
+    
     placeImages();
 });
