@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function positionHearts() {
-        const numHearts = 300;
+        const numHearts = 200;
         for (let i = 0; i < numHearts; i++) {
             const heart = createHeart();
             heart.style.left = `${Math.random() * 100}%`;
