@@ -45,8 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     envelope.addEventListener("click", function () {
-        if (envelope.classList.contains("flap")) {
-            createConfetti();
+        if (!envelope.classList.contains("flap")) {
+            envelope.classList.add("flap");
+            setTimeout(createConfetti, 1500);
         }
     });
 
@@ -88,8 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-     function placeImages() {
+    function placeImages() {
         imageContainer.innerHTML = ""; // Clear existing images
+        let placedImages = []; // Store placed image positions
+    
         imageList.forEach((imageSrc) => {
             let img = document.createElement("img");
             img.src = `images/${imageSrc}`;
@@ -98,10 +101,44 @@ document.addEventListener("DOMContentLoaded", function () {
             img.style.opacity = "0.8";
             img.style.borderRadius = "10px";
             img.style.boxShadow = "2px 2px 10px rgba(0, 0, 0, 0.2)";
-            img.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+            img.style.position = "absolute";
+    
+            let maxAttempts = 50; // Maximum attempts to find a non-overlapping position
+            let placed = false;
+            let imgWidth = 120; // Width of image
+            let imgHeight = 150; // Approximate height of image
+    
+            while (!placed && maxAttempts > 0) {
+                let leftPos = Math.random() * (window.innerWidth - imgWidth);
+                let topPos = Math.random() * (window.innerHeight - imgHeight);
+    
+                // Check if this position overlaps with existing images
+                let overlapping = placedImages.some(existing => {
+                    return (
+                        leftPos < existing.left + imgWidth &&
+                        leftPos + imgWidth > existing.left &&
+                        topPos < existing.top + imgHeight &&
+                        topPos + imgHeight > existing.top
+                    );
+                });
+    
+                if (!overlapping) {
+                    img.style.left = `${leftPos}px`;
+                    img.style.top = `${topPos}px`;
+                    placedImages.push({ left: leftPos, top: topPos });
+                    placed = true;
+                }
+    
+                maxAttempts--;
+            }
+    
+            // Random rotation
+            img.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+    
             imageContainer.appendChild(img);
         });
     }
+    
 
     positionHearts();
     placeImages();
